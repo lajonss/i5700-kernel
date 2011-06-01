@@ -71,30 +71,30 @@ int uv_procfile_read(char *buffer,
 
 
 static struct cpufreq_frequency_table freq_table_532MHz[] = {
-	{0, 532*KHZ_T},
-	{1, 266*KHZ_T},
-	{2, 133*KHZ_T},
+	{0, 1330*KHZ_T},
+	{1, 665*KHZ_T},
+	{2, 332*KHZ_T},
 #ifdef USE_DVFS_AL1_LEVEL
-	{3, 133*KHZ_T},
-	{4, 66*KHZ_T},
+	{3, 332*KHZ_T},
+	{4, 166*KHZ_T},
 	{5, CPUFREQ_TABLE_END},		
 #else
-	{3, 66*KHZ_T},
+	{3, 166*KHZ_T},
 	{4, CPUFREQ_TABLE_END},		
 #endif /* USE_DVFS_AL1_LEVEL */
 };
 
 static struct cpufreq_frequency_table freq_table_800MHz[] = {
-	{0, 800*KHZ_T},
-	{1, 400*KHZ_T},
-	{2, 266*KHZ_T},	
-	{3, 133*KHZ_T},
+	{0, 2000*KHZ_T},
+	{1, 1000*KHZ_T},
+	{2, 666*KHZ_T},	
+	{3, 333*KHZ_T},
 #ifdef USE_DVFS_AL1_LEVEL
-	{4, 133*KHZ_T},
-	{5, (66)*KHZ_T},
+	{4, 333*KHZ_T},
+	{5, (166)*KHZ_T},
 	{6, CPUFREQ_TABLE_END},
 #else
-	{4, (66)*KHZ_T},
+	{4, (166)*KHZ_T},
 	{5, CPUFREQ_TABLE_END},
 #endif /* USE_DVFS_AL1_LEVEL */
 };
@@ -127,14 +127,14 @@ static unsigned char transition_state_532MHz[][2] = {
 /* frequency voltage matching table */
 static const unsigned int frequency_match_532MHz[][4] = {
 /* frequency, Mathced VDD ARM voltage , Matched VDD INT*/
-	{532000, 1100, 1250, 0},
-	{266000, 1100, 1250, 1},
-	{133000, 1000, 1250, 2},
+	{1330000, 1100, 1250, 0},
+	{665000, 1100, 1250, 1},
+	{332000, 1000, 1250, 2},
 #ifdef USE_DVFS_AL1_LEVEL
-	{133000, 1050, 1050, 3},
-	{66000, 1050, 1050, 4},
+	{332000, 1050, 1050, 3},
+	{166000, 1050, 1050, 4},
 #else
-	{66000, 1050, 1050, 3},
+	{166000, 1050, 1050, 3},
 #endif /* USE_DVFS_AL1_LEVEL */
 };
 
@@ -142,15 +142,15 @@ static const unsigned int frequency_match_532MHz[][4] = {
 /* frequency voltage matching table */
 static unsigned int frequency_match_800MHz[][4] = {
 /* frequency, Mathced VDD ARM voltage , Matched VDD INT*/
-	{800000, DEF_800, 1250, 0},
-	{400000, DEF_400, 1250, 1},
-	{266000, DEF_266, 1250, 2},
-	{133000, DEF_133, 1250, 3},
+	{2000000, DEF_800, 1250, 0},
+	{1000000, DEF_400, 1250, 1},
+	{666000, DEF_266, 1250, 2},
+	{333000, DEF_133, 1250, 3},
 #ifdef USE_DVFS_AL1_LEVEL
-	{133000, DEF_133, 1050, 4},
-	{66000, DEF_66, 1050, 5},
+	{333000, DEF_133, 1050, 4},
+	{166000, DEF_66, 1050, 5},
 #else
-	{66000, 1050, 1050, 4},
+	{166000, 1050, 1050, 4},
 #endif /* USE_DVFS_AL1_LEVEL */
 };
 
@@ -436,10 +436,10 @@ static int s3c6410_target(struct cpufreq_policy *policy,
 	arm_clk = s3c6410_freq_table[S3C64XX_FREQ_TAB][index].frequency;
 	freqs.new = arm_clk;
 	freqs.cpu = 0;
-	freqs.new_hclk = 133000;
+	freqs.new_hclk = 333000;
   
 	if(index > S3C64XX_MAXFREQLEVEL) {
-		freqs.new_hclk = 66000;         
+		freqs.new_hclk = 332000;         
 	} 
 
 	target_freq = arm_clk;
